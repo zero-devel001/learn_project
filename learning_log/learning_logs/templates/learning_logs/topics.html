@@ -1,0 +1,28 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+{% block page_header %}
+  <h2>Topics    </h2>
+{% endblock page_header %}
+
+{% block content %}
+    <p>Topics</p>
+    <ul>
+        {% for topic in topics%}
+            <li>
+                <h3><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></h3>
+                <form action="{% url 'learning_logs:delete_topic' topic.id%}" method="post">
+                    {% csrf_token %}    
+                    <button type="submit" class="btn btn-primary">delete</button>
+                </form>
+            
+            </li>
+        {% empty %}
+            <li>No topics have been added yet.</li>
+        {% endfor %}
+        <li></li>
+    </ul>
+    <h4>
+        <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
+    </h4>
+
+{% endblock content %}
